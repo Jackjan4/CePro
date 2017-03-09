@@ -87,6 +87,8 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Moduling\AppModule.vb" />
+    <Compile Include="Net\ClientMessage.vb" />
     <Compile Include="Net\ClientRequest.vb" />
     <Compile Include="Net\ConnectionManager.vb" />
     <Compile Include="ConsoleRequest.vb" />
@@ -139,7 +141,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Moduling\DB\" />
+    <Folder Include="DB\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
