@@ -1,6 +1,7 @@
 ﻿Imports De.JanRoslan.CePro.My
 Imports De.JanRoslan.CePro.Net
 Imports System.IO
+Imports System.Reflection
 
 Namespace Moduling
 
@@ -47,7 +48,13 @@ Namespace Moduling
 
             ' Listing all modules
             For Each file As String In Directory.GetFiles(path, "*.dll", SearchOption.TopDirectoryOnly)
+                Dim ass As Assembly = Assembly.LoadFrom(file)
 
+                Dim results As IEnumerable(Of Type) = From a In ass.GetTypes
+                                                      Where GetType(BaseModule).IsAssignableFrom(a)
+                                                      Select a
+
+                results(0)
             Next
 
         End Sub
