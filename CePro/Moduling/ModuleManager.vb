@@ -15,6 +15,7 @@ Namespace Moduling
             End Get
         End Property
 
+        ' The modules, saved by the requests theya listen to
         Private Property ModulesByReq As Dictionary(Of String, AppModule)
 
 
@@ -54,7 +55,19 @@ Namespace Moduling
                                                       Where GetType(BaseModule).IsAssignableFrom(a)
                                                       Select a
 
-                results(0)
+                Dim baseM As BaseModule = DirectCast(Activator.CreateInstance(results(0)), BaseModule)
+                Dim appM As New AppModule(baseM)
+
+                ' Add modules to ModulesByReq
+                For Each req As String In appM.ListenedReqs
+
+                    ModulesByReq(req) = appM
+                Next
+
+
+                ' Add modules to ModulesByCmd
+
+
             Next
 
         End Sub

@@ -1,4 +1,6 @@
-﻿Namespace Moduling
+﻿Imports De.JanRoslan.CePro.Net
+
+Namespace Moduling
 
     Public Class AppModule
 
@@ -11,6 +13,22 @@
         Public ReadOnly Property ListenedCmds As String()
         Public ReadOnly Property Dependency As String
         Public ReadOnly Property First As Boolean
+
+        Public ReadOnly Property BaseModule As BaseModule
+
+            Sub  New(baseM as BaseModule)
+            Me.baseModule = baseM
+        End Sub
+
+
+        Sub Init()
+            Me.BaseModule.Init()
+        End Sub
+
+        Sub Process(message As ClientRequest)
+            Me.BaseModule.Process(message)
+        End Sub
+
     End Class
 
 

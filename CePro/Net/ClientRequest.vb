@@ -6,7 +6,7 @@ Namespace Net
     Public Class ClientRequest
         Implements IClientMessage
 
-        Private processing As List(Of Byte())
+        Private Property Processing As List(Of Byte())
 
         Public ReadOnly Property Answer As MemoryStream Implements IClientMessage.Answer
 
@@ -33,7 +33,7 @@ Namespace Net
 
 
         Public Sub AddProcessing(msg() As Byte) Implements IClientMessage.AddProcessing
-
+            Processing.Add(msg)
         End Sub
 
 

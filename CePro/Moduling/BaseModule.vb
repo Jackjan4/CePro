@@ -1,11 +1,13 @@
-﻿Namespace Moduling
+﻿Imports De.JanRoslan.CePro.Net
+
+Namespace Moduling
 
     Public Interface BaseModule
 
         Sub Init()
 
 
-        Sub Process()
+        Sub Process(msg As IClientMessage)
     End Interface
 
 
