@@ -124,9 +124,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.De.JanRoslan.CePro.My.MySettings
+        Friend ReadOnly Property Settings() As Global.De.JanRoslan.CePro.Core.My.MySettings
             Get
-                Return Global.De.JanRoslan.CePro.My.MySettings.Default
+                Return Global.De.JanRoslan.CePro.Core.My.MySettings.Default
             End Get
         End Property
     End Module

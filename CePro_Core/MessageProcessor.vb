@@ -1,8 +1,8 @@
 ﻿
 Imports System.Net
 Imports System.Net.Sockets
-Imports De.JanRoslan.CePro.Moduling
-Imports De.JanRoslan.CePro.Net
+Imports De.JanRoslan.CePro.Core.Moduling
+Imports De.JanRoslan.CePro.Core.Net
 
 ''' <summary>
 ''' Accepts a socket a handles the reading/writing to it
@@ -13,7 +13,7 @@ Public Class MessageProcessor
     Private Property Socket As Socket
 
     Sub New(socket As Socket)
-        Me.socket = socket
+        Me.Socket = socket
 
     End Sub
 
@@ -24,20 +24,20 @@ Public Class MessageProcessor
     ''' <param name="threadContext"></param>
     Sub Run(threadContext As Object)
 
-        If (socket.Available > 0) Then
+        If (Socket.Available > 0) Then
 
-            Dim buffer(socket.Available) As Byte
+            Dim buffer(Socket.Available) As Byte
 
             Try
-                socket.Receive(buffer)
+                Socket.Receive(buffer)
 
 
-                Dim ipEnd As IPEndPoint = DirectCast(socket.RemoteEndPoint, IPEndPoint)
+                Dim ipEnd As IPEndPoint = DirectCast(Socket.RemoteEndPoint, IPEndPoint)
                 Dim cReq As New ClientRequest(buffer, ipEnd.Address, ipEnd.Port)
 
                 ModuleManager.Instance.ProcessInModules(cReq)
 
-                socket.Send(cReq.Answer.ToArray())
+                Socket.Send(cReq.Answer.ToArray())
 
             Catch
 

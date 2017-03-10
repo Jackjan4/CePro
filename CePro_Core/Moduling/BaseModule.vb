@@ -1,4 +1,5 @@
-﻿Imports De.JanRoslan.CePro.Net
+﻿Imports De.JanRoslan.CePro.Core.Net
+Imports De.JanRoslan.CePro.Net
 
 Namespace Moduling
 

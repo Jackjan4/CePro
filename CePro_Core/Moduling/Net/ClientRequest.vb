@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Text.Encoding
 
 Namespace Net
 
@@ -16,11 +17,13 @@ Namespace Net
 
         Public ReadOnly Property Message As Byte() Implements IClientMessage.Message
 
+        Public ReadOnly Property MessageString As String Implements IClientMessage.MessageString
 
         Sub New(msg As Byte(), remoteIp As IPAddress, port As Integer)
             Me.Message = msg
             Me.RemoteIp = remoteIp
             Me.Port = port
+            MessageString = UTF8.GetString(msg)
 
             Me.Answer = New MemoryStream()
 
@@ -38,7 +41,9 @@ Namespace Net
 
 
         Public Function GetMessageHeader() As Byte() Implements IClientMessage.GetMessageHeader
+            For i As Integer = 0 To 7
 
+            Next
         End Function
 
 

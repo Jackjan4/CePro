@@ -8,6 +8,7 @@ Namespace Net
         ReadOnly Property RemoteIp As IPAddress
         ReadOnly Property Port As Integer
         ReadOnly Property Message As Byte()
+        ReadOnly Property MessageString As String
         ReadOnly Property Answer As MemoryStream
 
         Sub WriteAnswer(msg As Byte())

@@ -1,7 +1,10 @@
 ﻿Imports De.JanRoslan.CePro.My
 Imports De.JanRoslan.CePro.Net
 Imports System.IO
+Imports System.Text.Encoding
 Imports System.Reflection
+Imports De.JanRoslan.CePro.Core.Net
+Imports De.JanRoslan.CePro.Core.My
 
 Namespace Moduling
 
@@ -18,13 +21,17 @@ Namespace Moduling
         ' The modules, saved by the requests theya listen to
         Private Property ModulesByReq As Dictionary(Of String, AppModule)
 
+        ' The modules
+        Private Property Modules As HashSet(Of AppModule)
 
         Private Sub New()
             ModulesByReq = New Dictionary(Of String, AppModule)
+            Modules = New HashSet(Of AppModule)
 
-            'loadModules()
+            LoadModules()
 
-            'initModules()
+            InitModules()
+
         End Sub
 
 
@@ -35,6 +42,9 @@ Namespace Moduling
 
         Sub ProcessInModules(req As ClientRequest)
 
+            Dim procStack As New Stack(Of AppModule)
+
+            ModulesByReq(UTF8.GetString(req.GetMessageHeader)).Process(req)
 
         End Sub
 
@@ -55,8 +65,10 @@ Namespace Moduling
                                                       Where GetType(BaseModule).IsAssignableFrom(a)
                                                       Select a
 
-                Dim baseM As BaseModule = DirectCast(Activator.CreateInstance(results(0)), BaseModule)
-                Dim appM As New AppModule(baseM)
+                Dim appM As New AppModule(DirectCast(Activator.CreateInstance(results(0)), BaseModule))
+
+                Modules.Add(appM)
+                Console.WriteLine("Loaded " & appM.Name & " by " & appM.Author)
 
                 ' Add modules to ModulesByReq
                 For Each req As String In appM.ListenedReqs
@@ -70,6 +82,14 @@ Namespace Moduling
 
             Next
 
+        End Sub
+
+
+        Sub InitModules()
+
+            For Each modu As AppModule In Modules
+                modu.Init()
+            Next
         End Sub
 
     End Class

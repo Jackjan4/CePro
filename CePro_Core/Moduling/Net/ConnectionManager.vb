@@ -3,6 +3,8 @@ Imports System.Net
 Imports System.Collections
 Imports System.Net.Sockets
 Imports System.Threading
+Imports De.JanRoslan.CePro.My
+Imports De.JanRoslan.CePro.Core.My
 
 Namespace Net
 
@@ -24,16 +26,18 @@ Namespace Net
         ''' <param name="port"></param>
         Sub New(port As Integer)
             activeClients = New List(Of TcpClient)
-
+            Me.Port = port
             thread = New Thread(AddressOf Run)
         End Sub
 
-
+        Sub New()
+            Me.New(MySettings.Default.DefaultPort)
+        End Sub
 
         ''' <summary>
         ''' 
         ''' </summary>
-        Sub Init()
+        Sub InitAndStart()
 
             Listener = New TcpListener(IPAddress.Any, Port)
             Running = True
@@ -48,20 +52,28 @@ Namespace Net
         ''' <summary>
         ''' 
         ''' </summary>
-        Sub Run()
+        Private Sub Run()
 
             Dim readList As New List(Of Socket)
             Dim errorList As New List(Of Socket)
+            Dim writeList As New List(Of Socket)
+
             Dim pending As Boolean = False
+            Dim pendingClient As TcpClient = Nothing
 
             While Running
+
+                If (pendingClient IsNot Nothing) Then
+                    activeClients.Add(pendingClient)
+                    pendingClient = Nothing
+                End If
 
                 If (Not pending) Then
                     pending = True
 
                     ' 
                     Listener.BeginAcceptTcpClient(New AsyncCallback(Sub(res)
-                                                                        activeClients.Add(Listener.EndAcceptTcpClient(res))
+                                                                        pendingClient = Listener.EndAcceptTcpClient(res)
                                                                         pending = False
                                                                     End Sub), Nothing)
                 End If
@@ -71,12 +83,13 @@ Namespace Net
                 For Each client As TcpClient In activeClients
                     readList.Add(client.Client)
                     errorList.Add(client.Client)
+                    writeList.Add(client.Client)
                 Next
 
 
-
-                Socket.Select(readList, Nothing, errorList, -1)
-
+                If (readList.Count <> 0 OrElse errorList.Count <> 0 OrElse writeList.Count <> 0) Then
+                    Socket.Select(readList, writeList, errorList, -1)
+                End If
 
                 ' Action on Readable sockets
                 For Each sock As Socket In readList

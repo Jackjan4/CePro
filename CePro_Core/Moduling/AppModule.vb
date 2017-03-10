@@ -1,4 +1,4 @@
-﻿Imports De.JanRoslan.CePro.Net
+﻿Imports De.JanRoslan.CePro.Core.Net
 
 Namespace Moduling
 
@@ -16,8 +16,22 @@ Namespace Moduling
 
         Public ReadOnly Property BaseModule As BaseModule
 
-            Sub  New(baseM as BaseModule)
-            Me.baseModule = baseM
+        Sub New(modu As BaseModule)
+
+            Me.BaseModule = modu
+
+            Dim modInfo As ModuleInfo = BaseModule.GetType.GetCustomAttributes(GetType(ModuleInfo), False).FirstOrDefault()
+
+            Me.Name = modInfo.Name
+            Me.Description = modInfo.Description
+            Me.Version = modInfo.Version
+            Me.Author = modInfo.Author
+            Me.VersionName = modInfo.Name
+            Me.ListenedReqs = modInfo.ListenedReqs
+            Me.ListenedCmds = modInfo.ListenedCmds
+            Me.Dependency = modInfo.Dependency
+            Me.First = modInfo.First
+
         End Sub
 
 
