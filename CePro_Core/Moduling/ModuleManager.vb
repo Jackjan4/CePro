@@ -1,6 +1,4 @@
-﻿Imports De.JanRoslan.CePro.My
-Imports De.JanRoslan.CePro.Net
-Imports System.IO
+﻿Imports System.IO
 Imports System.Text.Encoding
 Imports System.Reflection
 Imports De.JanRoslan.CePro.Core.Net
@@ -61,18 +59,19 @@ Namespace Moduling
             For Each file As String In Directory.GetFiles(path, "*.dll", SearchOption.TopDirectoryOnly)
                 Dim ass As Assembly = Assembly.LoadFrom(file)
 
+                ' Search for IBaseModule implementation
                 Dim results As IEnumerable(Of Type) = From a In ass.GetTypes
-                                                      Where GetType(BaseModule).IsAssignableFrom(a)
+                                                      Where GetType(IBaseModule).IsAssignableFrom(a)
                                                       Select a
 
-                Dim appM As New AppModule(DirectCast(Activator.CreateInstance(results(0)), BaseModule))
+                ' Load module class
+                Dim appM As New AppModule(DirectCast(Activator.CreateInstance(results(0)), IBaseModule))
 
                 Modules.Add(appM)
                 Console.WriteLine("Loaded " & appM.Name & " by " & appM.Author)
 
-                ' Add modules to ModulesByReq
+                ' Add module to ModulesByReq
                 For Each req As String In appM.ListenedReqs
-
                     ModulesByReq(req) = appM
                 Next
 

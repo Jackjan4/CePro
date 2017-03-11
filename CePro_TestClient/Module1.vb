@@ -1,6 +1,7 @@
 ﻿Imports System.Net.Sockets
 Imports System.Text.Encoding
 Imports System.Threading
+Imports De.JanRoslan.NETUtils.Collections
 
 Module Module1
 
@@ -11,25 +12,10 @@ Module Module1
         ' Simulate large data
         'While True
 
-        Dim header As String = "test"
-        Dim escape As Byte = &H17
-        Dim content As String = "lol"
+        Dim msg As Byte() = ArrayUtils.Concat(UTF8.GetBytes("test"), New Byte() {&H17, &H17}, UTF8.GetBytes("lol"))
 
-
-        Dim message(header.Length + 2 + content.Length) As Byte
-
-
-        UTF8.GetBytes(header).CopyTo(message, 0)
-        UTF8.GetBytes(escape).CopyTo(z, x.Length);
-
-
-
-
-
-
-
-        client.GetStream().Write(UTF8.GetBytes("testlolol"), 0, 9)
-        For Each b As Byte In UTF8.GetBytes("testlol")
+        client.GetStream().Write(msg, 0, msg.Length)
+        For Each b As Byte In msg
             Console.WriteLine(b)
         Next
         'End While

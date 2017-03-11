@@ -4,6 +4,7 @@
     Public Class ModuleInfo
         Inherits Attribute
 
+        Public ReadOnly Property DisplayName As String
         Public ReadOnly Property Name As String
         Public ReadOnly Property Description As String
         Public ReadOnly Property Version As Integer
@@ -16,7 +17,8 @@
 
 
 
-        Public Sub New(name As String, description As String, version As Integer, first As Boolean, author As String, versionName As String, dependency As String, listenedReqs As String(), listenedCmds As String())
+        Public Sub New(displayName As String, name As String, description As String, version As Integer, first As Boolean, author As String, versionName As String, dependency As String, listenedReqs As String(), listenedCmds As String())
+            Me.DisplayName = displayName
             Me.Name = name
             Me.Description = description
             Me.Version = version

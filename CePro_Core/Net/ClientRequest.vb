@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Text.Encoding
+Imports De.JanRoslan.NETUtils.Collections
 
 Namespace Net
 
@@ -31,7 +32,7 @@ Namespace Net
 
 
         Public Sub WriteAnswer(msg() As Byte) Implements IClientMessage.WriteAnswer
-
+            Answer.Write(msg, 0, msg.Length)
         End Sub
 
 
@@ -42,7 +43,9 @@ Namespace Net
 
         Public Function GetMessageHeader() As Byte() Implements IClientMessage.GetMessageHeader
             For i As Integer = 0 To 7
-
+                If (Message(i) = &H17 AndAlso Message(i + 1) = &H17) Then
+                    Return ArrayUtils.SubArray(Message, 0, i)
+                End If
             Next
         End Function
 

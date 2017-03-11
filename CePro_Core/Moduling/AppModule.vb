@@ -14,9 +14,9 @@ Namespace Moduling
         Public ReadOnly Property Dependency As String
         Public ReadOnly Property First As Boolean
 
-        Public ReadOnly Property BaseModule As BaseModule
+        Public ReadOnly Property BaseModule As IBaseModule
 
-        Sub New(modu As BaseModule)
+        Sub New(modu As IBaseModule)
 
             Me.BaseModule = modu
 

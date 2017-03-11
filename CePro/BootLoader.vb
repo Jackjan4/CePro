@@ -1,8 +1,6 @@
 ﻿
 Imports De.JanRoslan.CePro.Core.Moduling
 Imports De.JanRoslan.CePro.Core.Net
-Imports De.JanRoslan.CePro.Moduling
-Imports De.JanRoslan.CePro.Net
 
 Public Class BootLoader
 
@@ -14,7 +12,6 @@ Public Class BootLoader
 
         ' Init ModuleManager
         Dim d As ModuleManager = ModuleManager.Instance
-
         Console.WriteLine("Succesfully loaded ModuleManager")
 
         ' Init ConnectionManager
