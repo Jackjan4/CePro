@@ -65,7 +65,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleRequest.vb" />
-    <Compile Include="MessageProcessor.vb" />
+    <Compile Include="Logging\Logger.vb" />
+    <Compile Include="RequestProcessor.vb" />
     <Compile Include="Moduling\AppModule.vb" />
     <Compile Include="Moduling\BaseModule.vb" />
     <Compile Include="Moduling\ModuleInfo.vb" />
@@ -89,6 +90,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Net\RequestManager.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -110,9 +112,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logging\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\..\C#\NETUtils\NETUtils\NETUtils.csproj">
       <Project>{D120566B-5E37-4CB9-9756-79EB43B52823}</Project>

@@ -36,11 +36,20 @@ Namespace Net
         End Sub
 
 
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="msg"></param>
         Public Sub AddProcessing(msg() As Byte) Implements IClientMessage.AddProcessing
             Processing.Add(msg)
         End Sub
 
 
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <returns></returns>
         Public Function GetMessageHeader() As Byte() Implements IClientMessage.GetMessageHeader
             For i As Integer = 0 To 7
                 If (Message(i) = &H17 AndAlso Message(i + 1) = &H17) Then

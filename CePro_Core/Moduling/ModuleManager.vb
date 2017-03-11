@@ -42,6 +42,8 @@ Namespace Moduling
 
             Dim procStack As New Stack(Of AppModule)
 
+
+
             ModulesByReq(UTF8.GetString(req.GetMessageHeader)).Process(req)
 
         End Sub
@@ -74,7 +76,6 @@ Namespace Moduling
                 For Each req As String In appM.ListenedReqs
                     ModulesByReq(req) = appM
                 Next
-
 
                 ' Add modules to ModulesByCmd
 

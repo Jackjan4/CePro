@@ -8,7 +8,7 @@ Imports De.JanRoslan.CePro.Core.Net
 ''' Accepts a socket a handles the reading/writing to it
 ''' Passes the message to the after reading to the ModuleManager
 ''' </summary>
-Public Class MessageProcessor
+Public Class RequestProcessor
 
     Private Property Socket As Socket
 
@@ -31,6 +31,7 @@ Public Class MessageProcessor
             Try
                 Socket.Receive(buffer)
 
+                ' TODO Send everything to ReqManager to process splitted requests
 
                 Dim ipEnd As IPEndPoint = DirectCast(Socket.RemoteEndPoint, IPEndPoint)
                 Dim cReq As New ClientRequest(buffer, ipEnd.Address, ipEnd.Port)

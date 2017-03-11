@@ -21,7 +21,7 @@ Namespace Net
 
 
         ''' <summary>
-        ''' 
+        ''' Creates this ConnectionManager with the given port
         ''' </summary>
         ''' <param name="port"></param>
         Sub New(port As Integer)
@@ -30,13 +30,19 @@ Namespace Net
             thread = New Thread(AddressOf Run)
         End Sub
 
+
+        ''' <summary>
+        ''' Creates this ConnectionManager with the given default port
+        ''' </summary>
         Sub New()
             Me.New(MySettings.Default.DefaultPort)
             WatchDog = New ConnectionWatchdog
         End Sub
 
+
+
         ''' <summary>
-        ''' 
+        ''' Initializes and starts this ConnectionManager
         ''' </summary>
         Sub InitAndStart()
 
@@ -97,7 +103,7 @@ Namespace Net
 
                 ' Action on Readable sockets -> Process them in MessageProcessor
                 For Each sock As Socket In readList
-                    Dim msgProc As New MessageProcessor(sock)
+                    Dim msgProc As New RequestProcessor(sock)
                     ThreadPool.QueueUserWorkItem(AddressOf msgProc.Run)
                 Next
 
@@ -111,7 +117,7 @@ Namespace Net
                 Next
 
                 For Each sock As Socket In writeList
-                    GetClientBySocket(sock)
+
                 Next
 
 
@@ -126,6 +132,7 @@ Namespace Net
 
             End While
         End Sub
+
 
 
         ''' <summary>
@@ -143,11 +150,6 @@ Namespace Net
 
             Return Nothing
         End Function
-
-
-
-
-
 
     End Class
 

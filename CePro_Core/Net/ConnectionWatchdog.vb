@@ -14,6 +14,8 @@ Namespace Net
 
         Private ReadOnly Property RemovedClients As ConcurrentQueue(Of TcpClient)
 
+
+
         Sub New()
 
             thread = New Thread(AddressOf Run)
@@ -22,6 +24,11 @@ Namespace Net
 
         End Sub
 
+
+
+        ''' <summary>
+        ''' Starts the watchdog
+        ''' </summary>
         Public Sub Start()
             Running = True
             thread.Start()
@@ -29,6 +36,11 @@ Namespace Net
         End Sub
 
 
+
+        ''' <summary>
+        ''' Returns a client which has disconnected, so it can be removed in further processing
+        ''' </summary>
+        ''' <returns></returns>
         Public Function GetRemovedClient() As Tuple(Of Boolean, TcpClient)
             Dim result As TcpClient = Nothing
 
@@ -38,6 +50,11 @@ Namespace Net
         End Function
 
 
+
+        ''' <summary>
+        ''' Adds a client to the watchdog, which repeatedley checks if this client is still connected
+        ''' </summary>
+        ''' <param name="client"></param>
         Public Sub AddClient(client As TcpClient)
 
             WatchedClients.Enqueue(client)
@@ -46,6 +63,9 @@ Namespace Net
 
 
 
+        ''' <summary>
+        ''' 
+        ''' </summary>
         Private Sub Run()
 
             While Running
@@ -64,9 +84,15 @@ Namespace Net
                         End If
 
                     End If
+
+
+
                 End If
             End While
+
         End Sub
+
+
     End Class
 
 
