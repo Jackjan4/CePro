@@ -3,6 +3,8 @@ Imports System.Text.Encoding
 Imports System.Reflection
 Imports De.JanRoslan.CePro.Core.Net
 Imports De.JanRoslan.CePro.Core.My
+Imports De.JanRoslan.NETUtils.Logging
+Imports De.JanRoslan.CePro.Core.Console
 
 Namespace Moduling
 
@@ -22,6 +24,9 @@ Namespace Moduling
         ' The modules
         Private Property Modules As HashSet(Of AppModule)
 
+
+
+
         Private Sub New()
             ModulesByReq = New Dictionary(Of String, AppModule)
             Modules = New HashSet(Of AppModule)
@@ -34,10 +39,10 @@ Namespace Moduling
 
 
 
-
-
-
-
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="req"></param>
         Sub ProcessInModules(req As ClientRequest)
 
             Dim procStack As New Stack(Of AppModule)
@@ -48,11 +53,21 @@ Namespace Moduling
 
         End Sub
 
+
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="req"></param>
         Sub ProcessInModules(req As ConsoleRequest)
 
         End Sub
 
 
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
         Sub LoadModules()
 
             Dim path = MySettings.Default.ModulePath
@@ -70,7 +85,7 @@ Namespace Moduling
                 Dim appM As New AppModule(DirectCast(Activator.CreateInstance(results(0)), IBaseModule))
 
                 Modules.Add(appM)
-                Console.WriteLine("Loaded " & appM.Name & " by " & appM.Author)
+                Logging.Logger.Instance.Log("Loaded module """ & appM.Name & """ " & appM.Version & " by " & appM.Author, LogLevel.INFO, "ModuleManager")
 
                 ' Add module to ModulesByReq
                 For Each req As String In appM.ListenedReqs
@@ -85,6 +100,10 @@ Namespace Moduling
         End Sub
 
 
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
         Sub InitModules()
 
             For Each modu As AppModule In Modules

@@ -65,6 +65,8 @@ Namespace Net
         ''' </summary>
         Private Sub Run()
 
+            Logging.Logger.Instance.Log("Listening for clients on port " & Port & " ...", LogLevel.INFO, "ConnectionManager")
+
             Dim readList As New List(Of Socket)
             Dim errorList As New List(Of Socket)
             Dim writeList As New List(Of Socket)
@@ -147,14 +149,16 @@ Namespace Net
         ''' <param name="socket"></param>
         ''' <returns></returns>
         Private Function GetClientBySocket(socket As Socket) As TcpClient
+            Dim result As TcpClient = Nothing
 
             For Each client As TcpClient In activeClients
                 If (client.Client.Equals(socket)) Then
-                    Return client
+                    result = client
+                    Exit For
                 End If
             Next
 
-            Return Nothing
+            Return result
         End Function
 
     End Class

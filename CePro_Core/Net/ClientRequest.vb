@@ -47,7 +47,7 @@ Namespace Net
 
 
         ''' <summary>
-        ''' 
+        ''' Returns the message header if existent, else 'Nothing'
         ''' </summary>
         ''' <returns></returns>
         Public Function GetMessageHeader() As Byte() Implements IClientMessage.GetMessageHeader
@@ -56,11 +56,16 @@ Namespace Net
                     Return ArrayUtils.SubArray(Message, 0, i)
                 End If
             Next
+
+            Return Nothing
         End Function
 
 
         Public Function GetMessageContent() As Byte() Implements IClientMessage.GetMessageContent
 
+
+
+            Return Nothing
         End Function
     End Class
 

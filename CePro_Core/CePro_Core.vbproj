@@ -118,9 +118,9 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleRequest.vb" />
+    <Compile Include="Console\ConsoleRequest.vb" />
     <Compile Include="Logging\Logger.vb" />
-    <Compile Include="RequestProcessor.vb" />
+    <Compile Include="Net\RequestProcessor.vb" />
     <Compile Include="Moduling\AppModule.vb" />
     <Compile Include="Moduling\BaseModule.vb" />
     <Compile Include="Moduling\ModuleInfo.vb" />
