@@ -10,7 +10,7 @@ Namespace Moduling
 
         Private Shared ReadOnly _instance As New Lazy(Of ModuleManager)(Function() New ModuleManager(), Threading.LazyThreadSafetyMode.ExecutionAndPublication)
 
-        Public Shared ReadOnly Property Instance() As ModuleManager
+        Public Shared ReadOnly Property Instance As ModuleManager
             Get
                 Return _instance.Value
             End Get

@@ -1,7 +1,9 @@
 ﻿Imports System.Net
 Imports System.Net.Sockets
 Imports System.Threading
+Imports De.JanRoslan.CePro.Core.Logging
 Imports De.JanRoslan.CePro.Core.My
+Imports De.JanRoslan.NETUtils.Logging
 
 Namespace Net
 
@@ -36,7 +38,7 @@ Namespace Net
         ''' </summary>
         Sub New()
             Me.New(MySettings.Default.DefaultPort)
-            WatchDog = New ConnectionWatchdog
+            Watchdog = New ConnectionWatchdog
         End Sub
 
 
@@ -49,7 +51,7 @@ Namespace Net
             Listener = New TcpListener(IPAddress.Any, Port)
             Running = True
 
-            WatchDog.Start()
+            Watchdog.Start()
 
             Listener.Start()
             thread.Start()
@@ -76,6 +78,10 @@ Namespace Net
                 ' Add pendingClient to activeClients
                 If (pendingClient IsNot Nothing) Then
                     activeClients.Add(pendingClient)
+
+                    Dim clientAddress As IPEndPoint = DirectCast(pendingClient.Client.RemoteEndPoint, IPEndPoint)
+                    Logging.Logger.Instance.Log("Accepted client: " + clientAddress.ToString + " ; Active clients: " + activeClients.Count, LogLevel.INFO, "ConnectionManager")
+
                     pendingClient = Nothing
                 End If
 
@@ -84,7 +90,7 @@ Namespace Net
                     pending = True
                     Listener.BeginAcceptTcpClient(New AsyncCallback(Sub(res)
                                                                         pendingClient = Listener.EndAcceptTcpClient(res)
-                                                                        WatchDog.AddClient(pendingClient)
+                                                                        Watchdog.AddClient(pendingClient)
                                                                         pending = False
                                                                     End Sub), Nothing)
                 End If
@@ -128,7 +134,7 @@ Namespace Net
                     If (clientTuple.Item1 = True) Then
                         activeClients.Remove(clientTuple.Item2)
                     End If
-                Loop While ClientTuple.Item1 = True
+                Loop While clientTuple.Item1 = True
 
             End While
         End Sub

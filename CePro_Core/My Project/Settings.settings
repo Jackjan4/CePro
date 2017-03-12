@@ -17,5 +17,8 @@
     <Setting Name="DefaultPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2848</Value>
     </Setting>
+    <Setting Name="LogFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\log.log</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

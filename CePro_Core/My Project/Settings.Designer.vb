@@ -113,6 +113,18 @@ Namespace My
                 Me("DefaultPort") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("D:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\log.log")>  _
+        Public Property LogFile() As String
+            Get
+                Return CType(Me("LogFile"),String)
+            End Get
+            Set
+                Me("LogFile") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
