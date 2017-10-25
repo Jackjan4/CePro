@@ -15,9 +15,11 @@
         Public ReadOnly Property Dependency As String
         Public ReadOnly Property First As Boolean
 
+        Public ReadOnly Property Last As Boolean
 
 
-        Public Sub New(displayName As String, name As String, description As String, version As Integer, first As Boolean, author As String, versionName As String, dependency As String, listenedReqs As String(), listenedCmds As String())
+
+        Public Sub New(displayName As String, name As String, description As String, version As Integer, first As Boolean, last As Boolean, author As String, versionName As String, dependency As String, listenedReqs As String(), listenedCmds As String())
             Me.DisplayName = displayName
             Me.Name = name
             Me.Description = description
@@ -27,6 +29,7 @@
             Me.ListenedReqs = listenedReqs
             Me.First = first
             Me.ListenedCmds = listenedCmds
+            Me.Last = last
         End Sub
 
 

@@ -82,7 +82,7 @@ Namespace Net
                     activeClients.Add(pendingClient)
 
                     Dim clientAddress As IPEndPoint = DirectCast(pendingClient.Client.RemoteEndPoint, IPEndPoint)
-                    Logging.Logger.Instance.Log("Accepted client: " + clientAddress.ToString + " ; Active clients: " + activeClients.Count, LogLevel.INFO, "ConnectionManager")
+                    Logging.Logger.Instance.Log("Accepted client: " & clientAddress.ToString() & " ; Active clients: " & activeClients.Count, LogLevel.INFO, "ConnectionManager")
 
                     pendingClient = Nothing
                 End If
@@ -135,6 +135,7 @@ Namespace Net
                     clientTuple = Watchdog.GetRemovedClient()
                     If (clientTuple.Item1 = True) Then
                         activeClients.Remove(clientTuple.Item2)
+                        Logging.Logger.Instance.Log("Removed client " & DirectCast(clientTuple.Item2.Client.RemoteEndPoint, IPEndPoint).ToString(), LogLevel.INFO, "ConnectionManager")
                     End If
                 Loop While clientTuple.Item1 = True
 

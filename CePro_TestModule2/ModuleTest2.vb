@@ -2,8 +2,8 @@
 Imports De.JanRoslan.CePro.Core.Moduling
 Imports De.JanRoslan.CePro.Core.Net
 
-<ModuleInfo("Testing module", "TestModule", "A module for testing", 0, False, False, "Jan Roslan", "TestVersion", Nothing, {"test", "rsa"}, {"test", "testcmd"})>
-Public Class ModuleTest
+<ModuleInfo("Testing module", "TestModule2", "A module for testing", 0, False, False, "Jan Roslan", "TestVersion", Nothing, {"test", "rsa"}, {"test", "testcmd"})>
+Public Class ModuleTest2
     Implements IBaseModule
 
     Private count As Integer = 0
@@ -17,8 +17,8 @@ Public Class ModuleTest
     End Sub
 
     Public Sub Process(msg As IClientMessage) Implements IBaseModule.Process
-        msg.WriteAnswer(Encoding.UTF8.GetBytes("Hallo"))
-
+        msg.WriteAnswer(Encoding.UTF8.GetBytes("Hallo2"))
+        msg.AddProcessing(Encoding.UTF8.GetBytes("Hallo2"))
         count = count + 1
     End Sub
 

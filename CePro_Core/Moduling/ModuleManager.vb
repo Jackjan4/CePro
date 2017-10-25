@@ -18,18 +18,21 @@ Namespace Moduling
             End Get
         End Property
 
-        ' The modules, saved by the requests theya listen to
+        ' The modules, saved by the requests they listen to
         Private Property ModulesByReq As Dictionary(Of String, AppModule)
 
-        ' The modules
-        Private Property Modules As HashSet(Of AppModule)
+        Private Property ModulesByName As Dictionary(Of String, AppModule)
+
+        Private Property Last As AppModule
+
+        Private Property First As AppModule
 
 
 
 
         Private Sub New()
             ModulesByReq = New Dictionary(Of String, AppModule)
-            Modules = New HashSet(Of AppModule)
+            ModulesByName = New Dictionary(Of String, AppModule)
 
             LoadModules()
 
@@ -40,17 +43,36 @@ Namespace Moduling
 
 
         ''' <summary>
-        ''' 
+        ''' Processes this ClientRequest inside the module pipe
         ''' </summary>
         ''' <param name="req"></param>
         Sub ProcessInModules(req As ClientRequest)
 
-            Dim procStack As New Stack(Of AppModule)
+            ' Target module
+            Dim target = ModulesByReq(UTF8.GetString(req.GetMessageHeader))
 
+            If (First IsNot Nothing) Then
+                First.Process(req)
+            End If
 
+            ' Get dependencies
+            Dim stack As New Stack(Of AppModule)
+            Dim dependency = target.Dependency
+            While (dependency IsNot Nothing AndAlso Not dependency.Equals(""))
+                Dim depMod = ModulesByName(dependency)
+                stack.Push(depMod)
+                dependency = depMod.Dependency
+            End While
 
-            ModulesByReq(UTF8.GetString(req.GetMessageHeader)).Process(req)
+            ' Process dependencies
+            While stack.Count > 0
+                stack.Pop().Process(req)
+            End While
 
+            target.Process(req)
+            If (Last IsNot Nothing) Then
+                Last.Process(req)
+            End If
         End Sub
 
 
@@ -84,7 +106,7 @@ Namespace Moduling
                 ' Load module class
                 Dim appM As New AppModule(DirectCast(Activator.CreateInstance(results(0)), IBaseModule))
 
-                Modules.Add(appM)
+                ModulesByName(appM.Name) = appM
                 Logging.Logger.Instance.Log("Loaded module """ & appM.Name & """ " & appM.Version & " by " & appM.Author, LogLevel.INFO, "ModuleManager")
 
                 ' Add module to ModulesByReq
@@ -94,6 +116,13 @@ Namespace Moduling
 
                 ' Add modules to ModulesByCmd
 
+
+                If (appM.First) Then
+                    First = appM
+                End If
+                If (appM.Last) Then
+                    Last = appM
+                End If
 
             Next
 
@@ -106,7 +135,7 @@ Namespace Moduling
         ''' </summary>
         Sub InitModules()
 
-            For Each modu As AppModule In Modules
+            For Each modu As AppModule In ModulesByName.Values
                 modu.Init()
             Next
         End Sub

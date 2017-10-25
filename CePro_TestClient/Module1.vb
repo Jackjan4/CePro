@@ -12,7 +12,7 @@ Module Module1
         ' Simulate large data
         'While True
 
-        Dim msg As Byte() = ArrayUtils.Concat(UTF8.GetBytes("test"), New Byte() {&H17, &H17}, UTF8.GetBytes("lol"))
+        Dim msg As Byte() = UTF8.GetBytes("test").Concat(New Byte() {&H17, &H17}).Concat(UTF8.GetBytes("test2")).ToArray()
 
         client.GetStream().Write(msg, 0, msg.Length)
         For Each b As Byte In msg

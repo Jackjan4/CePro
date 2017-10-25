@@ -17,7 +17,7 @@ Namespace My
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
-    Partial Public NotInheritable Class MySettings
+    Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
         
         Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings()),MySettings)
@@ -53,66 +53,6 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("1000")>  _
-        Public Property SelectTimeout() As Integer
-            Get
-                Return CType(Me("SelectTimeout"),Integer)
-            End Get
-            Set
-                Me("SelectTimeout") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
-        Public Property MaxPoolThreads() As Integer
-            Get
-                Return CType(Me("MaxPoolThreads"),Integer)
-            End Get
-            Set
-                Me("MaxPoolThreads") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2")>  _
-        Public Property MinPoolThreads() As Integer
-            Get
-                Return CType(Me("MinPoolThreads"),Integer)
-            End Get
-            Set
-                Me("MinPoolThreads") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("E:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\modules")>  _
-        Public Property ModulePath() As String
-            Get
-                Return CType(Me("ModulePath"),String)
-            End Get
-            Set
-                Me("ModulePath") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("2848")>  _
-        Public Property DefaultPort() As Integer
-            Get
-                Return CType(Me("DefaultPort"),Integer)
-            End Get
-            Set
-                Me("DefaultPort") = value
-            End Set
-        End Property
     End Class
 End Namespace
 
@@ -124,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.De.JanRoslan.CePro.My.MySettings
+        Friend ReadOnly Property Settings() As Global.CePro_TestModule2.My.MySettings
             Get
-                Return Global.De.JanRoslan.CePro.My.MySettings.Default
+                Return Global.CePro_TestModule2.My.MySettings.Default
             End Get
         End Property
     End Module

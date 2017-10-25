@@ -12,7 +12,7 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ModulePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\modules</Value>
+      <Value Profile="(Default)">E:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\modules</Value>
     </Setting>
     <Setting Name="DefaultPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2848</Value>

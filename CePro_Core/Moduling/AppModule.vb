@@ -11,8 +11,10 @@ Namespace Moduling
         Public ReadOnly Property VersionName As String
         Public ReadOnly Property ListenedReqs As String()
         Public ReadOnly Property ListenedCmds As String()
-        Public ReadOnly Property Dependency As String
+        Public ReadOnly Property Dependency As String = ""
         Public ReadOnly Property First As Boolean
+
+        Public ReadOnly Property Last As Boolean
 
         Public ReadOnly Property BaseModule As IBaseModule
 
@@ -31,7 +33,7 @@ Namespace Moduling
             Me.ListenedCmds = modInfo.ListenedCmds
             Me.Dependency = modInfo.Dependency
             Me.First = modInfo.First
-
+            Me.Last = modInfo.Last
         End Sub
 
 

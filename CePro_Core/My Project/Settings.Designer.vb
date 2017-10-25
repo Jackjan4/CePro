@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Public NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -92,7 +92,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("D:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\modules")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("E:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\modules")>  _
         Public Property ModulePath() As String
             Get
                 Return CType(Me("ModulePath"),String)
@@ -116,7 +116,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("D:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\log.log")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("E:\Dev\Programs\VBNet\CePro\CePro\bin\Debug\log.log")>  _
         Public Property LogFile() As String
             Get
                 Return CType(Me("LogFile"),String)
